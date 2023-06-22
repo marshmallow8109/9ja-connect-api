@@ -23,7 +23,7 @@ const post = require("./model/post");
 //static middleware
 app.use(express.json());
 app.use(helmet());
-app.use(cors(corsOption));
+app.use(cors());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 
