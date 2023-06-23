@@ -20,17 +20,6 @@ const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
 
-//static middleware
-app.use(express.json());
-app.use(helmet());
-app.use(cors());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: false }));
 app.set("trust proxy", 1);
 app.use(
   rateLimit({
@@ -40,6 +29,17 @@ app.use(
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   })
 );
+
+//static middleware
+app.use(express.json());
+app.use(helmet());
+app.use(cors());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
 
 //routes
 app.use("/", router);
