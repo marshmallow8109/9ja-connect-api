@@ -24,8 +24,10 @@ const Login = asyncWrapper(async (req, res) => {
     res.status(400).json({ msg: `no user with email: ${email} not found` });
     return;
   }
-  const passCheck = await bcypt.compare(password, user.password);
-  if (!passCheck) {
+  const isPasswordCorrect = await user.comparePassword(password);
+
+  // const passCheck = await bcypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
     res.status(401).json({ msg: `invalid credentials` });
     return;
   }
