@@ -44,6 +44,17 @@ app.use(
     allowedHeaders: "Content-Type,Authorization",
   })
 );
+
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://9jafriendify.netlify.app"
+  ); // Set the allowed origin (or specific domains) here
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 // app.use(cors(corsOption));
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
