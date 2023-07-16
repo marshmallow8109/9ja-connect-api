@@ -33,19 +33,8 @@ app.use(
 //static middleware
 app.use(express.json());
 app.use(helmet());
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://9jafriendify.netlify.app",
-      "https://9jafriendify.netlify.app",
-    ],
-    methods: "GET,POST,PATCH",
-    allowedHeaders: "Content-Type, Authorization",
-  })
-);
-
 app.use(cors());
+
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
