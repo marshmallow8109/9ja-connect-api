@@ -20,13 +20,7 @@ const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
 
-const corsOptions1 = {
-  origin: "http://localhost:3000", // Replace with your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "application/json"],
-};
-
-app.use(cors(corsOptions1));
+app.use(cors(corsOption));
 //app.set("trust proxy", 1);
 app.use(
   rateLimit({
