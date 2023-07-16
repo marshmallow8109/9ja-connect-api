@@ -20,7 +20,7 @@ const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
 
-app.set("trust proxy", 1);
+//app.set("trust proxy", 1);
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -33,17 +33,17 @@ app.use(
 //static middleware
 app.use(express.json());
 app.use(helmet());
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:3000",
-//       "http://9jafriendify.netlify.app",
-//       "https://9jafriendify.netlify.app",
-//     ],
-//     methods: "GET,POST,PATCH",
-//     allowedHeaders: "Content-Type,Authorization",
-//   })
-// );
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://9jafriendify.netlify.app",
+      "https://9jafriendify.netlify.app",
+    ],
+    methods: "GET,POST,PATCH",
+    allowedHeaders: "Content-Type, Authorization",
+  })
+);
 
 app.use(cors());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -53,13 +53,13 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Set the allowed origin (or specific domains) here
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*"); // Set the allowed origin (or specific domains) here
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 //routes
 app.use("/", router);
