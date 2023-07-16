@@ -14,11 +14,23 @@ const bodyParser = require("body-parser");
 const connectDB = require("./DB/connect");
 const rateLimit = require("express-rate-limit");
 const corsOption = require("./Cors/coresOptions");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 //populate dB
 const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
+
+app.use(
+  "/proxy",
+  createProxyMiddleware({
+    target: "https://9jaconnect.cyclic.app", // Replace with the target URL
+    changeOrigin: true,
+    pathRewrite: {
+      "^/proxy": "", // Remove the '/proxy' prefix when forwarding the request
+    },
+  })
+);
 
 app.use(cors(corsOption));
 //app.set("trust proxy", 1);
