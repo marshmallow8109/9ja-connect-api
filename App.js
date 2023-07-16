@@ -23,7 +23,7 @@ const post = require("./model/post");
 const corsOptions1 = {
   origin: "http://localhost:3000", // Replace with your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["Content-Type", "application/json"],
 };
 
 app.use(cors(corsOptions1));
