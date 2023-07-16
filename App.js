@@ -20,7 +20,7 @@ const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
 
-app.use(cors());
+app.use(cors(corsOption));
 //app.set("trust proxy", 1);
 app.use(
   rateLimit({
