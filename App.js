@@ -14,25 +14,13 @@ const bodyParser = require("body-parser");
 const connectDB = require("./DB/connect");
 const rateLimit = require("express-rate-limit");
 const corsOption = require("./Cors/coresOptions");
-const { createProxyMiddleware } = require("http-proxy-middleware");
 
 //populate dB
 const { users, posts } = require("./index");
 const Users = require("./model/Users");
 const post = require("./model/post");
 
-app.use(
-  "/proxy",
-  createProxyMiddleware({
-    target: "https://9jafriendify.netlify.app", // Replace with the target URL
-    changeOrigin: true,
-    pathRewrite: {
-      "^/proxy": "", // Remove the '/proxy' prefix when forwarding the request
-    },
-  })
-);
-
-app.use(cors(corsOption));
+app.use(cors());
 //app.set("trust proxy", 1);
 app.use(
   rateLimit({
@@ -46,20 +34,12 @@ app.use(
 //static middleware
 app.use(express.json());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+//app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
-
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*"); // Set the allowed origin (or specific domains) here
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   next();
-// });
 
 //routes
 app.use("/", router);
