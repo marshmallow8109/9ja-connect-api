@@ -24,7 +24,7 @@ const post = require("./model/post");
 app.use(
   "/proxy",
   createProxyMiddleware({
-    target: "https://9jaconnect.cyclic.app", // Replace with the target URL
+    target: "https://9jafriendify.netlify.app", // Replace with the target URL
     changeOrigin: true,
     pathRewrite: {
       "^/proxy": "", // Remove the '/proxy' prefix when forwarding the request
