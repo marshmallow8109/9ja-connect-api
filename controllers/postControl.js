@@ -24,7 +24,7 @@ const AddPost = asyncWrapper(async (req, res) => {
   });
   await newPost.save();
 
-  const post = await Post.find().sort({ createdAt: -1 });
+  const post = await Post.find();
   res.status(201).json(post);
 });
 
